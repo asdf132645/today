@@ -37,6 +37,16 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],
 
+  vue: {
+    config: {
+      devtools: true,
+      productionTip: false,
+    },
+  },
+
+  env:{
+    apiUrl: process.env.NODE_ENV === 'production' ? 'https://api.tablenjoy.com' : 'https://test-api.tablenjoy.com:30080',
+  },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
@@ -56,6 +66,16 @@ export default {
     },
   },
 
+  server: {
+    host: '0.0.0.0',
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    html: {
+      minify: {
+        collapseWhitespace: true,  // as @dario30186 mentioned
+        removeComments: true, // 👈 add this line
+      },
+    },
+  },
 }
