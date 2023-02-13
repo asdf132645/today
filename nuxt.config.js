@@ -18,7 +18,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: ['~/assets/css/global.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -50,16 +50,40 @@ export default {
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    treeShake: true,
+    defaultAssets: {
+      font: {
+        family: 'Noto Sans KR'
+      }
+    },
     theme: {
-      dark: true,
+      dark: false,
+      options: {customProperties: true},
       themes: {
         dark: {
-          primary: colors.blue.darken2,
+          primary: '#EC632A', // red
           accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+          secondary: '#7C726E',
           info: colors.teal.lighten1,
           warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
+          error: '#D84315',
+          success: colors.green.accent3,
+        },
+        light: {
+          // primary: '#FF6F00',  // orange
+          // primary: '#546E7A',  // blue gray
+          // primary: '#2E7D32', // green
+          // primary: '#827717',  // lime
+          // primary: '#6D4C41',  // brown
+          primary: '#C90E1B', // '#D84315', // red
+          accent: colors.grey.darken3,
+          // secondary: '#636d49',
+          // secondary: '#9e5e5e',
+          // secondary: '#757575',
+          secondary: '#633D2F', // '#5D4037',
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: '#E00007', // '#D84315',
           success: colors.green.accent3,
         },
       },

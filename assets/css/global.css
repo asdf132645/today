@@ -1,0 +1,162 @@
+:root {
+  --home-banner-height: 700px; /* 418px */
+  --body-max-width: 540px;
+  --primary: var(--v-primary-base); /* #D62A2A; #D84315; */
+  --primary-alpha: #D62A2ACC; /* #D84315CC; */
+  --secondary: var(--v-secondary-base); /* #633D2F; #5D4037; */
+  --error: var(--v-error-base); /* #E00007; #D84315; */
+  --comment: #555555;
+}
+
+.tnj-text-truncate-1-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  white-space: normal;
+}
+
+.tnj-text-truncate-2-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  white-space: normal;
+}
+
+.tnj-text-truncate-3-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  white-space: normal;
+}
+
+.tnj-scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.tnj-v-separator {
+  height: 16px;
+  /*background: #f4f6f8 !important;*/
+  background: #E0E0E0 !important;
+}
+
+.tnj-v-spacer-1 {
+  height: 4px;
+}
+
+.tnj-v-spacer-2 {
+  height: 8px;
+}
+
+.tnj-v-spacer-3 {
+  height: 12px;
+}
+
+.tnj-v-spacer-4 {
+  height: 16px;
+}
+
+.tnj-v-spacer-5 {
+  height: 20px;
+}
+
+.tnj-v-spacer-6 {
+  height: 24px;
+}
+
+.tnj-back-button-position {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.tnj-black-label label {
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.tnj-close-button-position {
+  position: absolute;
+  top: 0;
+  text-align: right;
+}
+
+.tnj-main-body {
+  background-color: white;
+}
+
+/*.tnj-primary-background-color {*/
+/*  background-color: #FFF3E0;*/
+/*  !*background-color: #ECEFF1;*!*/
+/*}*/
+
+.tnj-secondary-background-color {
+  background-color: #EEEEEE;
+}
+
+.tnj-break-lines {
+  margin-top: -1em;
+  white-space: pre-line;
+}
+
+.tnj-link-text-color {
+  color: inherit !important;
+}
+
+.tnj-link-text-accent-color {
+  color: var(--primary) !important;
+}
+
+.tnj-comment-text-color {
+  color: var(--comment) !important;
+}
+
+.tnj-error-text-color {
+  color: var(--error) !important;
+}
+
+.tnj-expansion-panel-header-text {
+  display: block;
+}
+
+.tnj-html-content {
+  white-space: pre-wrap;
+}
+
+/*html {*/
+/*    margin: 0 auto;*/
+/*    max-width: 540px;*/
+/*}*/
+
+body {
+  /*margin: 0 auto;*/
+  /*max-width: 540px;*/
+
+  /*background-color: #f4f6f8;*/
+  /*background-color: #EEEEEE;*/
+  background-color: #ffffff;
+}
+
+.app-body {
+  margin: 0 auto;
+  max-width: var(--body-max-width);
+}
+
+* {
+  line-height: 138% !important;
+}
+
+/*.page-enter-active, .page-leave-active {*/
+/*  transition: opacity .1s;*/
+/*}*/
+/*.page-enter, .page-leave-to {*/
+/*  opacity: 0;*/
+/*}*/
+
+.v-expansion-panel-header {
+  word-break: break-all;
+}
