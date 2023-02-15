@@ -75,7 +75,7 @@ export default {
           // primary: '#2E7D32', // green
           // primary: '#827717',  // lime
           // primary: '#6D4C41',  // brown
-          primary: '#C90E1B', // '#D84315', // red
+          primary: '#000000', // '#D84315', // red
           accent: colors.grey.darken3,
           // secondary: '#636d49',
           // secondary: '#9e5e5e',

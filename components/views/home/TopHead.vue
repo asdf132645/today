@@ -4,7 +4,22 @@
       <div>
         <v-img class="logo" :src="require('~/assets/img/logo.jpg')"></v-img>
       </div>
-      <div class="title"> TITLE</div>
+      <div class="search">
+        <v-toolbar
+          light
+          flat
+        >
+          <v-text-field
+            ref='inputField'
+            v-model='keyword'
+            rounded filled
+            placeholder='업체명 검색'
+            dense hide-details
+            prepend-inner-icon='mdi-magnify'
+          >
+          </v-text-field>
+        </v-toolbar>
+      </div>
     </div>
   </div>
 </template>
@@ -16,14 +31,15 @@ import {Component, Vue} from 'nuxt-property-decorator';
   components: {}
 })
 export default class TopHead extends Vue {
-
+  keyword = '';
 }
 </script>
 
 <style scoped>
 
-.title {
-  margin: auto;
+.search {
+  /*margin: auto;*/
+  width: 90%;
 }
 
 .logo {

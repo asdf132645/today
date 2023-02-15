@@ -1,7 +1,7 @@
 <template>
   <v-app class='app-body'>
     <!--    <v-main class='elevation-10'>-->
-    <div>
+    <div v-if="this.$route.path === '/'">
       <TopHead></TopHead>
     </div>
 
@@ -31,6 +31,9 @@ import TopHead from "~/components/views/home/TopHead.vue";
 export default class AppMain extends Vue {
   NotCachedComponents = [];
 
+  mounted(): void{
+    // console.log(this.$route.path === '/')
+  }
 }
 
 </script>
