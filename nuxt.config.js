@@ -45,7 +45,7 @@ export default {
   },
 
   env:{
-    apiUrl: process.env.NODE_ENV === 'production' ? 'https://api.tablenjoy.com' : 'https://test-api.tablenjoy.com:30080',
+    apiUrl: process.env.NODE_ENV === 'production' ? 'http://localhost:3000' : 'http://localhost:3000',
   },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

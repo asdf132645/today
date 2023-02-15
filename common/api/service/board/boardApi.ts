@@ -1,0 +1,11 @@
+import { ApiResponse, httpClient } from '~/common/api/httpClient';
+import { apiConstants } from '~/common/api/apiConstants';
+import {BoardAdd} from "~/common/api/service/board/dto/boardApiDto";
+
+class BoardApi {
+  inquiryAdd(request: BoardAdd): Promise<ApiResponse<void>> {
+    return httpClient.httpPost(apiConstants.board.list, request);
+  }
+}
+
+export const boardApi = new BoardApi();
