@@ -30,10 +30,11 @@
     </MainBody>
     <Section>
       <TextLabel
-        text='작업 환경 소개'
+        text='업체 소개'
         text-size-head
         weight-bold
       />
+
     </Section>
   </div>
 </template>

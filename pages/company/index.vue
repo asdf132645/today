@@ -18,7 +18,7 @@ import {BoardAdd} from "~/common/api/service/board/dto/boardApiDto";
 export default class Company extends Vue {
 
   mounted():void {
-    this.addInquiry();
+    // this.addInquiry();
   }
 
   async addInquiry(): Promise<void> {
