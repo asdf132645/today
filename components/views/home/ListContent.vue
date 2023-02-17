@@ -29,12 +29,40 @@
       </ul>
     </MainBody>
     <Section>
-      <TextLabel
-        text='업체 소개'
-        text-size-head
-        weight-bold
-      />
-
+      <div>
+        <div>
+        <TextLabel
+          text='업체 소개'
+          text-size-head
+          weight-bold
+        />
+        <p>여러 업체에 다양한 정보를 만나보세요.</p>
+        </div>
+        <div>
+          <p>
+            전체보기</p>
+        </div>
+      </div>
+      <div>
+        <v-sheet
+          class="mt-5 mx-auto"
+          elevation="8"
+          max-width="100%"
+        >
+          <v-slide-group mobile-break-point="1000" show-arrows center-active>
+            <v-slide-item v-for="(slide, i) in slides" :key="i">
+              <v-card width="200" class="ma-4">
+                <v-card-title>
+                  <v-img height="200px" contain :src="slide.image"></v-img>
+                </v-card-title>
+                <v-card-text>
+                  <b>{{ slide.price }}€</b>
+                </v-card-text>
+              </v-card>
+            </v-slide-item>
+          </v-slide-group>
+        </v-sheet>
+      </div>
     </Section>
   </div>
 </template>
@@ -53,7 +81,23 @@ import TextLabel from '~/components/uikit/text/TextLabel.vue';
   }
 })
 export default class ListContent extends Vue {
-
+  slides: object[] = [
+    {
+      title: 'TERRA PC-BUSINESS 5050S',
+      image: 'https://www.wortmann.de/content/files/images/ProductImages/medium/item100955910000.jpg',
+      price: 559
+    },
+    {
+      title: 'TERRA PC-BUSINESS 5000',
+      image: 'https://www.wortmann.de/content/files/images/ProductImages/medium/item100956890000.jpg',
+      price: 609
+    },
+    {
+      title: 'TERRA PC-Micro 6000SE SILENT GREENLINE ',
+      image: 'https://www.wortmann.de/content/files/images/ProductImages/medium/item100955650000.jpg',
+      price: 689
+    },
+  ]
 }
 
 </script>

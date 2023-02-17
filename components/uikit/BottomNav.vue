@@ -8,19 +8,35 @@
       hide-on-scroll
       color=""
     >
-      하단 영역
+      <v-btn value='top'
+             color='white'
+             @click='onClickHome'
+      >
+        <v-icon>mdi-home-outline</v-icon>
+      </v-btn>
+      <v-btn
+             value='code' color='white' @click='onClickSearch'>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
     </v-bottom-navigation>
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Vue} from 'nuxt-property-decorator';
+import RouterUtils from "~/common/lib/routerUtils";
 
 @Component({
   components: {}
 })
 export default class BottomNav extends Vue {
+  onClickHome(): void {
+    RouterUtils.goHome();
+  }
 
+  onClickSearch(): void {
+
+  }
 }
 
 
