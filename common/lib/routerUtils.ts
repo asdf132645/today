@@ -8,4 +8,8 @@ export default class RouterUtils {
       console.log('router push complete');
     });
   }
+
+  static goToCompanyDetailPage(companyId: number, name: string): void {
+    this.goTo(`/businessInfo/companyDetail/${companyId}?name=${name}`);
+  }
 }

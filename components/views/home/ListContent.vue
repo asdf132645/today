@@ -40,7 +40,8 @@
         </div>
         <div>
           <p>
-            전체보기</p>
+            <router-link to="/businessInfo">
+              전체보기</router-link></p>
         </div>
       </div>
       <div>
@@ -49,7 +50,7 @@
           elevation="8"
           max-width="100%"
         >
-          <v-slide-group mobile-break-point="1000" show-arrows center-active>
+          <v-slide-group mobile-breakpoint="0" mobile-break-point="1000" show-arrows center-active>
             <v-slide-item v-for="(slide, i) in slides" :key="i">
               <v-card width="200" class="ma-4">
                 <v-card-title>
