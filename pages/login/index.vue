@@ -26,12 +26,12 @@
           </div>
           <button class="loginGo">로그인</button>
           <p v-if="company">
-            <router-link to="">
+            <router-link :to="`/login/Join?company=true`">
               아직 업체 회원이 아니세요?
             </router-link>
           </p>
           <p v-else>
-            <router-link to="">
+            <router-link :to="`/login/Join?company=false`">
               아직 회원이 아니세요?
             </router-link>
           </p>
