@@ -1,20 +1,19 @@
 <template>
   <v-app class='app-body'>
     <!--    <v-main class='elevation-10'>-->
-    <div v-if="this.$route.path === '/'">
+    <div v-if="$route.path === '/'">
       <TopHead></TopHead>
     </div>
 
     <div>
-    <v-main>
-      <Nuxt keep-alive :keep-alive-props='{ exclude: NotCachedComponents }'/>
-    </v-main>
+      <v-main>
+        <Nuxt keep-alive :keep-alive-props='{ exclude: NotCachedComponents }'/>
+      </v-main>
     </div>
 
 
-    <div>
-      <BottomNav />
-    </div>
+    <BottomNav/>
+
 
   </v-app>
 </template>
@@ -25,13 +24,13 @@ import BottomNav from '~/components/uikit/BottomNav.vue';
 import TopHead from "~/components/views/home/TopHead.vue";
 
 @Component({
-  components: {TopHead,BottomNav}
+  components: {TopHead, BottomNav}
 })
 
 export default class AppMain extends Vue {
   NotCachedComponents = [];
 
-  mounted(): void{
+  mounted(): void {
     // console.log(this.$route.path === '/')
   }
 }

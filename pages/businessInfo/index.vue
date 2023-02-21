@@ -40,8 +40,8 @@ import Content from '~/components/layout/Content.vue';
 })
 export default class BusinessInfo extends Vue {
   companyList: object = [
-    {name:'업체명1',num:1,description:'업체설명1',AdditionalDes:'업체 부설명'},
-    {name:'업체명2',num:2,description:'업체설명2',AdditionalDes:'업체 부설명2'}
+    {name:'업체명1',num:1,division:'업체설명1',AdditionalDes:'업체 부설명'},
+    {name:'업체명2',num:2,division:'업체설명2',AdditionalDes:'업체 부설명2'}
   ];
 }
 </script>

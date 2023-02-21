@@ -17,7 +17,7 @@
         <router-link to="">
           <li>
             <v-icon>mdi-clipboard-edit</v-icon>
-            <p>후기</p>
+            <p>전체 업체</p>
           </li>
         </router-link>
         <router-link to="">
@@ -50,7 +50,7 @@
           elevation="8"
           max-width="100%"
         >
-          <v-slide-group mobile-breakpoint="0" mobile-break-point="1000" show-arrows center-active>
+          <v-slide-group mobile-breakpoint="1000" show-arrows center-active>
             <v-slide-item v-for="(slide, i) in slides" :key="i">
               <v-card width="200" class="ma-4">
                 <v-card-title>

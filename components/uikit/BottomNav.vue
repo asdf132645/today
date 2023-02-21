@@ -1,12 +1,11 @@
 <template>
-  <div>
     <v-bottom-navigation
+      v-model='activeItem'
       app
       fixed
       grow
       class='bottom-nav'
       hide-on-scroll
-      color=""
     >
       <v-btn value='top'
              color='white'
@@ -18,8 +17,10 @@
              value='code' color='white' @click='onClickSearch'>
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
+      <v-btn value='account' color='white' @click='onClickMyPage'>
+        <v-icon>mdi-account-outline</v-icon>
+      </v-btn>
     </v-bottom-navigation>
-  </div>
 </template>
 
 <script lang="ts">
@@ -30,12 +31,21 @@ import RouterUtils from "~/common/lib/routerUtils";
   components: {}
 })
 export default class BottomNav extends Vue {
+  activeItem = 'top';
+  user: string | null = null;
+
   onClickHome(): void {
     RouterUtils.goHome();
   }
 
   onClickSearch(): void {
 
+  }
+
+  onClickMyPage():void{
+      if(this.user === null){
+        this.$router.push('/login');
+      }
   }
 }
 
@@ -49,5 +59,18 @@ export default class BottomNav extends Vue {
   max-width: var(--body-max-width);
   left: auto !important;
   background: #fff;
+}
+
+.v-item-group.v-bottom-navigation .v-btn {
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  flex: 0 1 auto;
+  font-size: .75rem;
+  height: inherit;
+  max-width: 168px;
+  min-width: 80px;
+  position: relative;
+  text-transform: none;
 }
 </style>
