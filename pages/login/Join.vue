@@ -17,14 +17,19 @@
           <div class="login-title mt-2" v-if="company">
             업체 사업자번호
           </div>
-          <input class="login-input" type="text" v-if="company"/>
+          <input class="login-input" type="text" v-if="company" />
           <div class="login-title mt-2" >
             휴대폰번호
           </div>
           <div>
-            <input class="login-input wid80" type="text" />
-            <v-btn class="height20">인증번호 요청</v-btn>
+            <input class="login-input wid80" type="text" v-model="phoneNumber"/>
+            <v-btn class="height20" @click="smsCertification">인증번호 요청</v-btn>
+            <div class="mt2" v-if="checkInput">
+              <input class="login-input wid80" type="text" v-model="phoneNumCheck"/>
+              <v-btn class="height20" @click="smsCheck">확인</v-btn>
+            </div>
           </div>
+
           <div class="login-title mt-2">
             {{ company ? '업체' : '' }} 이메일
           </div>
@@ -41,6 +46,12 @@
             {{ company ? '업체 연락처' : '연락처' }}
           </div>
           <input class="login-input" type="text"/>
+          <div class="login-title mt-2" v-if="company">
+            서비스 분야
+          </div>
+          <v-select :items="sevice" v-if="company"></v-select>
+
+          <button class="loginGo mt-3" >가입신청</button>
         </div>
       </div>
     </MainBody>
@@ -50,13 +61,19 @@
 import {Vue, Component} from "nuxt-property-decorator";
 
 import MainBody from '~/components/layout/MainBody.vue';
+import {smsApi} from "~/common/api/service/sms/smsApi";
+
 
 @Component({
   components: {MainBody}
 })
 export default class Join extends Vue {
+  checkInput: boolean = false;
+  phoneNumCheck: string = '';
   company: boolean = false;
   noLoginPage: boolean = true;
+  sevice: string[] = ['1','2'];
+  phoneNumber: string = '';
 
   mounted(): void {
     if (this.$route.query.company === 'true') {
@@ -65,6 +82,36 @@ export default class Join extends Vue {
       this.company = false;
     }
   }
+
+  async smsCertification(): Promise<void>{
+
+    // smsApi.send
+    const pa = {
+      phoneNumber: this.phoneNumber,
+    }
+    try {
+      const result = await smsApi.send(pa);
+      this.checkInput = true;
+      console.log(result);
+    } catch (e) {
+      console.log(e)
+    }
+
+  }
+
+  async smsCheck(): Promise<void>{
+    // smsCheck
+    const sms = {
+      phoneNumber: this.phoneNumber,
+      inputNumber: this.phoneNumCheck,
+    }
+    try {
+      await smsApi.smsCheck(sms);
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
 }
 </script>
 

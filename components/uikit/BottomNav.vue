@@ -45,6 +45,8 @@ export default class BottomNav extends Vue {
   onClickMyPage():void{
       if(this.user === null){
         this.$router.push('/login');
+      }else{
+        this.$router.push('/mypage');
       }
   }
 }
