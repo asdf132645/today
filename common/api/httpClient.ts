@@ -3,8 +3,12 @@ import { GenericObject } from '~/common/type/generalTypes';
 import ServerUrlDefines from '~/common/defines/serverUrlDefines';
 
 export interface ApiResponse<T> {
+  code: number;
   data: T | null;
+  msg: string;
 }
+
+
 
 interface HttpResponse<T> {
   data: ApiResponse<T>

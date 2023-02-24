@@ -43,7 +43,9 @@ export default {
       productionTip: false,
     },
   },
-
+  generate: {
+    fallback: true
+  },
   env:{
     apiUrl: process.env.NODE_ENV === 'production' ? 'http://localhost:3000' : 'http://localhost:3000',
   },
@@ -92,6 +94,7 @@ export default {
 
   server: {
     host: '0.0.0.0',
+    port: 63007,
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

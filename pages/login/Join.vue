@@ -7,51 +7,77 @@
       <div class='borderBox'>
         <div class="mb-8 strongText text-center">
           Today Solve 에서 <br>
-          {{ company ? '고객을 찾아보세요!':'업체를 찾아보세요!' }}
+          {{ company ? '고객을 찾아보세요!' : '업체를 찾아보세요!' }}
         </div>
         <div>
-          <div class="login-title">
-            {{ company ? '업체' : '' }} 계좌번호
+          <div class="divLine">
+            <div class="login-title">
+              {{ company ? '업체' : '' }} 계좌번호
+            </div>
+            <input class="login-input" type="text" v-model="accountNumber"/>
+            <div class="login-title mt-2">
+              {{ company ? '업체' : '' }} 은행명
+            </div>
+            <input class="login-input" type="text" v-model="accountName">
           </div>
-          <input class="login-input" type="text"/>
-          <div class="login-title mt-2" v-if="company">
-            업체 사업자번호
+
+          <div class="divLine" v-if="company">
+            <div class="login-title mt-2">
+              업체 사업자번호
+            </div>
+            <input class="login-input" type="text" v-model="businessNumber"/>
           </div>
-          <input class="login-input" type="text" v-if="company" />
-          <div class="login-title mt-2" >
-            휴대폰번호
-          </div>
-          <div>
-            <input class="login-input wid80" type="text" v-model="phoneNumber"/>
-            <v-btn class="height20" @click="smsCertification">인증번호 요청</v-btn>
-            <div class="mt2" v-if="checkInput">
-              <input class="login-input wid80" type="text" v-model="phoneNumCheck"/>
-              <v-btn class="height20" @click="smsCheck">확인</v-btn>
+
+          <div class="divLine">
+            <div class="login-title mt-2">
+              휴대폰번호
+            </div>
+            <div>
+              <input v-model="phoneNumber" class="login-input wid80" type="text" :disabled="phoneNumComplete"/>
+              <v-btn class="height20" :disabled="phoneNumComplete" @click="smsCertification">인증번호 요청</v-btn>
+              <div v-if="checkInput" class="mt-2">
+                <input v-model="phoneNumCheck" class="login-input wid80" type="text"/>
+                <v-btn class="height20" @click="smsCheck">확인</v-btn>
+              </div>
             </div>
           </div>
 
-          <div class="login-title mt-2">
-            {{ company ? '업체' : '' }} 이메일
+          <div class="divLine">
+            <div class="login-title mt-2">
+              {{ company ? '업체' : '' }} 이메일
+            </div>
+            <input class="login-input" type="text" v-model="email"/>
           </div>
-          <input class="login-input" type="text"/>
-          <div class="login-title mt-2">
-            비밀번호
-          </div>
-          <input class="login-input" type="text"/>
-          <div class="login-title mt-2">
-            {{ company ? '업체 담당자' : '이름' }}
-          </div>
-          <input class="login-input" type="text"/>
-          <div class="login-title mt-2">
-            {{ company ? '업체 연락처' : '연락처' }}
-          </div>
-          <input class="login-input" type="text"/>
-          <div class="login-title mt-2" v-if="company">
-            서비스 분야
-          </div>
-          <v-select :items="sevice" v-if="company"></v-select>
 
-          <button class="loginGo mt-3" >가입신청</button>
+          <div class="divLine">
+            <div class="login-title mt-2">
+              비밀번호
+            </div>
+            <input class="login-input" type="text" v-model="password"/>
+          </div>
+
+          <div class="divLine">
+            <div class="login-title mt-2">
+              {{ company ? '업체 담당자' : '이름' }}
+            </div>
+            <input class="login-input" type="text" v-model="userName"/>
+          </div>
+          <div class="divLine">
+            <div class="login-title mt-2">
+              ID
+            </div>
+            <input class="login-input" type="text" v-model="userId"/>
+          </div>
+
+
+          <div class="divLine">
+            <div v-if="company" class="login-title mt-2">
+              서비스 분야
+            </div>
+            <input class="login-input" v-if="company" type="text" v-model="service">
+          </div>
+
+          <button class="loginGo mt-3" @click="joinApplication">가입신청</button>
         </div>
       </div>
     </MainBody>
@@ -62,18 +88,33 @@ import {Vue, Component} from "nuxt-property-decorator";
 
 import MainBody from '~/components/layout/MainBody.vue';
 import {smsApi} from "~/common/api/service/sms/smsApi";
+import {userApi} from '~/common/api/service/user/userApi';
 
 
 @Component({
   components: {MainBody}
 })
 export default class Join extends Vue {
+  userId: string = '';
+  userName: string = '';
+  email: string = '';
+  password: string = '';
+  role: string = '';
+  phoneNumber: string = '';
+  accountNumber: string = '';
+  accountName: string = '';
+  businessNumber: string = '';
+  service: string = '';
+
+  phoneNumComplete: boolean = false;
   checkInput: boolean = false;
   phoneNumCheck: string = '';
   company: boolean = false;
   noLoginPage: boolean = true;
-  sevice: string[] = ['1','2'];
-  phoneNumber: string = '';
+  sevice: string[] = ['1', '2'];
+
+  sessces: boolean = false;
+
 
   mounted(): void {
     if (this.$route.query.company === 'true') {
@@ -83,7 +124,7 @@ export default class Join extends Vue {
     }
   }
 
-  async smsCertification(): Promise<void>{
+  async smsCertification(): Promise<void> {
 
     // smsApi.send
     const pa = {
@@ -91,7 +132,9 @@ export default class Join extends Vue {
     }
     try {
       const result = await smsApi.send(pa);
+      this.phoneNumComplete = true;
       this.checkInput = true;
+      alert('문자가 발송되었습니다. 문자함을 확인 해주세요.')
       console.log(result);
     } catch (e) {
       console.log(e)
@@ -99,16 +142,56 @@ export default class Join extends Vue {
 
   }
 
-  async smsCheck(): Promise<void>{
+  async smsCheck(): Promise<void> {
     // smsCheck
     const sms = {
       phoneNumber: this.phoneNumber,
       inputNumber: this.phoneNumCheck,
     }
     try {
-      await smsApi.smsCheck(sms);
+      const result = await smsApi.smsCheck(sms);
+      if (result) {
+        alert('인증이 완료되었습니다.');
+        this.sessces = true;
+        this.checkInput = false;
+      }
+      console.log(result);
     } catch (e) {
+      this.sessces = false;
       console.log(e)
+    }
+  }
+
+  async joinApplication(): Promise<void> {
+    if (!this.sessces) {
+      alert('휴대폰 인증을 해주세요.');
+    } else {
+      const user = {
+        userId: this.userId,
+        userName: this.userName,
+        email: this.email,
+        password: this.password,
+        phoneNumber: this.phoneNumber,
+        businessNumber: this.businessNumber,
+        service: this.service,
+        accountNumber: this.accountNumber,
+        accountName: this.accountName,
+        role: this.company ? 'company': 'general',
+      }
+
+
+      try {
+        const result =  await userApi.createUser(user);
+        if (result) {
+          console.log(result);
+          alert('회원가입 완료');
+        }
+
+      } catch (e) {
+
+        console.log(e)
+      }
+      // console.log(result)
     }
   }
 
@@ -178,7 +261,7 @@ input.login-input.wid80 {
   margin-right: 13px;
 }
 
-.height20{
+.height20 {
   height: 45px;
   vertical-align: middle;
   position: relative;

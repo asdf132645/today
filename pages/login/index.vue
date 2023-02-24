@@ -16,15 +16,15 @@
         <div v-else>
           <div class="mb-5">
             <div class="login-title">
-              {{ company ? '업체' : '' }} 이메일
+              ID
             </div>
-            <input class="login-input" type="text"/>
+            <input class="login-input" type="text" v-model="userId"/>
             <div class="login-title mt-2">
               비밀번호
             </div>
-            <input class="login-input" type="text"/>
+            <input class="login-input" type="text" v-model="password"/>
           </div>
-          <button class="loginGo">로그인</button>
+          <button class="loginGo" @click="login">로그인</button>
           <p v-if="company">
             <router-link :to="`/login/Join?company=true`">
               아직 업체 회원이 아니세요?
@@ -44,9 +44,10 @@
   </div>
 </template>
 <script lang="ts">
-import {Vue, Component} from "nuxt-property-decorator";
+import {Component, Vue} from "nuxt-property-decorator";
 import PageTitleBar from "~/components/layout/PageTitleBar.vue";
 import MainBody from '~/components/layout/MainBody.vue';
+import {userApi} from "~/common/api/service/user/userApi";
 
 @Component({
   components: {PageTitleBar, MainBody}
@@ -54,6 +55,8 @@ import MainBody from '~/components/layout/MainBody.vue';
 export default class Login extends Vue {
   company: boolean = false;
   noLoginPage: boolean = true;
+  userId: string = '';
+  password: string = '';
 
   generalUser(): void {
     this.company = false;
@@ -67,6 +70,24 @@ export default class Login extends Vue {
 
   loginBackBtn(): void {
     this.noLoginPage = true;
+  }
+
+  async login(): Promise<void>{
+    const pa = {
+      userId: this.userId,
+      password: this.password,
+    }
+    try {
+      const result = await userApi.login(pa);
+      if(result.code === 200){
+        alert('로그인 처리 시켜야함');
+      }else{
+        alert(result.msg)
+      }
+      console.log(result);
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
 </script>
