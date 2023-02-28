@@ -26,6 +26,7 @@
 <script lang="ts">
 import {Component, Vue} from 'nuxt-property-decorator';
 import RouterUtils from "~/common/lib/routerUtils";
+import SiteStoreUtils from "~/store/utils/siteStoreUtils";
 
 @Component({
   components: {}
@@ -43,11 +44,12 @@ export default class BottomNav extends Vue {
   }
 
   onClickMyPage():void{
-      if(this.user === null){
-        this.$router.push('/login');
-      }else{
-        this.$router.push('/mypage');
-      }
+      // if(this.user === null){
+      //   this.$router.push('/login');
+      // }else{
+      //   this.$router.push('/mypage');
+      // }
+    SiteStoreUtils.loginAndMoveTo('/mypage');
   }
 }
 

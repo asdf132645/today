@@ -97,6 +97,7 @@ export default {
     port: 63007,
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
+  devServerHandlers: [],
   build: {
     html: {
       minify: {

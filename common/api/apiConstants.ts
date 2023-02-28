@@ -1,6 +1,7 @@
-import {login} from "~/common/api/service/user/dto/userApiDto";
-
 export const apiConstants = {
+  auth:{
+    refresh:'/auth/refresh',
+  },
   board: {
     list:'/users',
   },

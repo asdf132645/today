@@ -184,7 +184,8 @@ export default class Join extends Vue {
         const result =  await userApi.createUser(user);
         if (result) {
           console.log(result);
-          alert('회원가입 완료');
+          alert('가입되었습니다.');
+          await this.$router.push('/');
         }
 
       } catch (e) {

@@ -48,6 +48,12 @@ import {Component, Vue} from "nuxt-property-decorator";
 import PageTitleBar from "~/components/layout/PageTitleBar.vue";
 import MainBody from '~/components/layout/MainBody.vue';
 import {userApi} from "~/common/api/service/user/userApi";
+import UserStoreUtils from "~/store/utils/userStoreUtils";
+import {StoreLoginTokenParam} from "~/store/types/userStoreType";
+import {LoginReplyDto} from "~/common/api/service/user/dto/userApiDto";
+import RouterUtils from "~/common/lib/routerUtils";
+import {userStore} from "~/store";
+import {UserType} from "~/common/type/userType";
 
 @Component({
   components: {PageTitleBar, MainBody}
@@ -57,6 +63,7 @@ export default class Login extends Vue {
   noLoginPage: boolean = true;
   userId: string = '';
   password: string = '';
+  staySignedIn = false;
 
   generalUser(): void {
     this.company = false;
@@ -78,13 +85,21 @@ export default class Login extends Vue {
       password: this.password,
     }
     try {
-      const result = await userApi.login(pa);
-      if(result.code === 200){
-        alert('로그인 처리 시켜야함');
+      const response = await userApi.login(pa);
+      const authData: any | null = response.data;
+      if(response.code === 200){
+        alert('로그인 되었습니다.');
+        if(authData.role === 'general'){
+          userStore.updateUserType(UserType.general);
+        }else{
+          userStore.updateUserType(UserType.company);
+        }
+        UserStoreUtils.updateUserAuth(StoreLoginTokenParam.of(this.staySignedIn, authData ?? undefined));
+        RouterUtils.goTo('/');
       }else{
-        alert(result.msg)
+        alert(response.msg)
       }
-      console.log(result);
+      console.log(response);
     } catch (e) {
       console.log(e)
     }
