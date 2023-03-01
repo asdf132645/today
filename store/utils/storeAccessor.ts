@@ -15,5 +15,3 @@ function initialiseStores(store: Store<any>): void {
 }
 
 export { initialiseStores, userStore, siteStore };
-
-

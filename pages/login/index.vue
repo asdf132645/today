@@ -18,11 +18,11 @@
             <div class="login-title">
               ID
             </div>
-            <input class="login-input" type="text" v-model="userId"/>
+            <input v-model="userId" class="login-input" type="text"/>
             <div class="login-title mt-2">
               비밀번호
             </div>
-            <input class="login-input" type="text" v-model="password"/>
+            <input v-model="password" class="login-input" type="text"/>
           </div>
           <button class="loginGo" @click="login">로그인</button>
           <p v-if="company">
@@ -83,7 +83,7 @@ export default class Login extends Vue {
     const pa = {
       userId: this.userId,
       password: this.password,
-    }
+    };
     try {
       const response = await userApi.login(pa);
       const authData: any | null = response.data;
@@ -97,11 +97,11 @@ export default class Login extends Vue {
         UserStoreUtils.updateUserAuth(StoreLoginTokenParam.of(this.staySignedIn, authData ?? undefined));
         RouterUtils.goTo('/');
       }else{
-        alert(response.msg)
+        alert(response.msg);
       }
       console.log(response);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
   }
 }
