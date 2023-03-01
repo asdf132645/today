@@ -32,3 +32,7 @@ export interface LoginReplyDto {
   role: string;
   // refresh: UserTokenDto;
 }
+
+export interface myPage {
+  userId: string;
+}

@@ -12,5 +12,6 @@ export const apiConstants = {
   user:{
     create: '/user/create',
     login: '/auth/login',
+    myPage:'/user/myPage'
   }
-}
+};

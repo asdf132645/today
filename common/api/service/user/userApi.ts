@@ -1,6 +1,6 @@
 import { ApiResponse, httpClient } from '~/common/api/httpClient';
 import { apiConstants } from '~/common/api/apiConstants';
-import {login, userCreateAdd} from '~/common/api/service/user/dto/userApiDto';
+import {login, myPage, userCreateAdd} from '~/common/api/service/user/dto/userApiDto';
 class UserApi {
   createUser(request: userCreateAdd): Promise<ApiResponse<void>> {
     return httpClient.httpPost(apiConstants.user.create, request);
@@ -8,6 +8,10 @@ class UserApi {
 
   login(request: login): Promise<ApiResponse<void>> {
     return httpClient.httpPost(apiConstants.user.login, request);
+  }
+
+  myPage(request: myPage): Promise<ApiResponse<void>>{
+    return httpClient.httpPost(apiConstants.user.myPage, request);
   }
 }
 
