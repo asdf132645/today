@@ -10,7 +10,8 @@ export enum UserKey {
   accessToken = 'accessToken', accessExpiresIn = 'accessExpiresIn', accessExpiresAt = 'accessExpiresAt',
   refreshToken = 'refreshToken', refreshExpiresIn = 'refreshExpiresIn', refreshExpiresAt = 'refreshExpiresAt',
   staySignedIn = 'staySignedIn', userType = 'userType', nonmemberPhone = 'nonmemberPhone',
-  picksDtoJsonStr = 'picksDtoJsonStr'
+  picksDtoJsonStr = 'picksDtoJsonStr',
+  userId = 'userId',
 }
 
 @Module({
@@ -38,6 +39,8 @@ export default class UserModule extends VuexModule {
   _nonmemberPhone: string | null = null;
 
   _picksDtoJsonStr: string | null = null;
+
+  _userId: string | null = null;
 
   //
   // Access Token
@@ -406,5 +409,37 @@ export default class UserModule extends VuexModule {
   @Action ({ rawError: true })
   updatePicksDtoJsonStr(jsonStr: string | null): void {
     this.context.commit('setPicksDtoJsonStr', jsonStr);
+  }
+
+  //
+  // userId
+  //
+  get userId(): string | null {
+    if (this._userId != null) {
+      return this._userId;
+    }
+
+    const userId = sessionStorage.getItem(UserKey.userId);
+    if (userId) {
+      userStore.updateUserIdStr(userId);
+    }
+
+    return userId;
+  }
+
+  @Mutation
+  setUserIdStr(userId: string | null): void {
+    this._userId = userId;
+
+    if (userId) {
+      sessionStorage.setItem(UserKey.userId, userId);
+    } else {
+      sessionStorage.removeItem(UserKey.userId);
+    }
+  }
+
+  @Action ({ rawError: true })
+  updateUserIdStr(userId: string | null): void {
+    this.context.commit('setUserIdStr', userId);
   }
 }

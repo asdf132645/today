@@ -8,6 +8,14 @@ import {
 } from '~/store/types/userStoreType';
 
 export default class UserStoreUtils {
+  static clearAll(): void {
+    userStore.updateUserType(null);
+    userStore.updateNonmemberPhone(null);
+    userStore.updatePicksDtoJsonStr(null);
+
+    this.updateUserAuth(StoreLoginTokenParam.of(false,undefined));
+  }
+
   static updateUserAuth(param: StoreLoginTokenParam): void {
     console.log('vuex: updateUserAuth', param.staySignedIn);
 

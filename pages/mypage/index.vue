@@ -5,7 +5,6 @@
     ></PageTitleBar>
 
 
-
     <div class="serviceDiv">
       <div class="user">
         <p>아이디</p>
@@ -37,6 +36,7 @@
         <div></div>
       </div>
     </div>
+    <v-btn @click="logout">로그아웃</v-btn>
   </div>
 </template>
 
@@ -46,28 +46,52 @@ import PageTitleBar from '~/components/layout/PageTitleBar.vue';
 import {UserType} from "~/common/type/userType";
 import {userStore} from "~/store";
 import TextLabel from "~/components/uikit/text/TextLabel.vue";
+import UserStoreUtils from "~/store/utils/userStoreUtils";
+import {userApi} from "~/common/api/service/user/userApi";
+import {StoreLoginTokenParam} from "~/store/types/userStoreType";
+import RouterUtils from "~/common/lib/routerUtils";
 
 @Component({
-  components:{TextLabel, PageTitleBar,}
+  components: {TextLabel, PageTitleBar,}
 })
 export default class MyPage extends Vue {
   userType: UserType | null = null;
 
-  mounted(){
+  mounted() {
     this.userType = userStore.userType;
 
     if (this.userType === UserType.general) {// 일반회원
 
-    } else if(this.userType === null){
+    } else if (this.userType === null) {
       alert('로그인 후 이용해 주세요.');
       this.$router.replace('/login');
+    }
+  }
+
+  async logout(): Promise<void> {
+
+    const pa = {
+      userId: userStore.userId,
+    };
+    try {
+      const response = await userApi.logout(pa);
+      if (response.code === 200) {
+        alert('로그아웃 되었습니다.');
+        userStore.updateUserIdStr('');
+        UserStoreUtils.clearAll();
+        await this.$router.replace('/');
+      }
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+      alert(e);
     }
   }
 }
 </script>
 
 <style scoped>
-  .serviceDiv{
+.serviceDiv {
 
-  }
+}
 </style>

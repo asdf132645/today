@@ -14,7 +14,7 @@ export interface userCreateAdd {
 
 
 //
-// 리프레시 토큰
+// 리프레시 토큰logout
 //
 export interface RefreshReplyDto {
   accessToken: string;
@@ -35,4 +35,8 @@ export interface LoginReplyDto {
 
 export interface myPage {
   userId: string;
+}
+
+export interface logout {
+  userId: string | null;
 }
