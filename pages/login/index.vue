@@ -95,6 +95,7 @@ export default class Login extends Vue {
           userStore.updateUserType(UserType.company);
         }
         userStore.updateUserIdStr(this.userId);
+        userStore.updateRefreshTokenStr(authData.refreshToken);
         UserStoreUtils.updateUserAuth(StoreLoginTokenParam.of(this.staySignedIn, authData ?? undefined));
         RouterUtils.goTo('/');
       }else{

@@ -32,6 +32,7 @@ class HttpClient {
 
   async httpPost<T>(url: string, payload: GenericObject, token: string | null): Promise<ApiResponse<T>> {
     console.log(userStore.accessExpiresAt)
+    // return await this.refreshTokenAct();
     if (userStore.accessExpiresAt !== null) {
       if (TokenUtils.tokenExpiring(userStore.accessExpiresAt)) {
         try {
@@ -62,7 +63,8 @@ class HttpClient {
   }
 
   async refreshTokenAct(): Promise<any> {
-    const apiResponse: ApiResponse<RefreshReplyDto> = await this.httpPost(apiConstants.auth.refresh,  {userId:userStore.userId,}, userStore.accessToken );
+    console.log(userStore.refreshTokentwo)
+    const apiResponse: ApiResponse<RefreshReplyDto> = await this.httpPostAct(apiConstants.auth.refresh,  {userId: userStore.userId, currentHashedRefreshToken: userStore.refreshTokentwo}, userStore.accessToken );
     if (apiResponse.data?.accessToken) {
       UserStoreUtils.refreshAccessToken(StoreRefreshTokenParam.of(userStore.staySignedIn ?? false, apiResponse.data));
       return Promise.resolve(apiResponse.data);

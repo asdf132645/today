@@ -12,6 +12,7 @@ export enum UserKey {
   staySignedIn = 'staySignedIn', userType = 'userType', nonmemberPhone = 'nonmemberPhone',
   picksDtoJsonStr = 'picksDtoJsonStr',
   userId = 'userId',
+  refreshTokentwo = 'refreshToken',
 }
 
 @Module({
@@ -41,6 +42,8 @@ export default class UserModule extends VuexModule {
   _picksDtoJsonStr: string | null = null;
 
   _userId: string | null = null;
+
+  _refreshTokentwo: string | null = null;
 
   //
   // Access Token
@@ -441,5 +444,37 @@ export default class UserModule extends VuexModule {
   @Action ({ rawError: true })
   updateUserIdStr(userId: string | null): void {
     this.context.commit('setUserIdStr', userId);
+  }
+
+  //
+  // 리프레시토큰
+  //
+  get refreshTokentwo(): string | null {
+    if (this._refreshTokentwo != null) {
+      return this._refreshTokentwo;
+    }
+
+    const refreshTokentwo = sessionStorage.getItem(UserKey.refreshTokentwo);
+    if (refreshTokentwo) {
+      userStore.updateUserIdStr(refreshTokentwo);
+    }
+
+    return refreshTokentwo;
+  }
+
+  @Mutation
+  setRefreshTokenStr(refreshTokentwo: string | null): void {
+    this._refreshTokentwo = refreshTokentwo;
+
+    if (refreshTokentwo) {
+      sessionStorage.setItem(UserKey.userId, refreshTokentwo);
+    } else {
+      sessionStorage.removeItem(UserKey.refreshTokentwo);
+    }
+  }
+
+  @Action ({ rawError: true })
+  updateRefreshTokenStr(refreshTokentwo: string | null): void {
+    this.context.commit('setRefreshTokenStr', refreshTokentwo);
   }
 }
