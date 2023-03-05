@@ -456,7 +456,7 @@ export default class UserModule extends VuexModule {
 
     const refreshTokentwo = sessionStorage.getItem(UserKey.refreshTokentwo);
     if (refreshTokentwo) {
-      userStore.updateUserIdStr(refreshTokentwo);
+      userStore.updateRefreshTokenStr(refreshTokentwo);
     }
 
     return refreshTokentwo;
@@ -467,7 +467,7 @@ export default class UserModule extends VuexModule {
     this._refreshTokentwo = refreshTokentwo;
 
     if (refreshTokentwo) {
-      sessionStorage.setItem(UserKey.userId, refreshTokentwo);
+      sessionStorage.setItem(UserKey.refreshTokentwo, refreshTokentwo);
     } else {
       sessionStorage.removeItem(UserKey.refreshTokentwo);
     }

@@ -14,18 +14,18 @@
             <div class="login-title">
               {{ company ? '업체' : '' }} 계좌번호
             </div>
-            <input class="login-input" type="text" v-model="accountNumber"/>
+            <input v-model="accountNumber" class="login-input" type="text"/>
             <div class="login-title mt-2">
               {{ company ? '업체' : '' }} 은행명
             </div>
-            <input class="login-input" type="text" v-model="accountName">
+            <input v-model="accountName" class="login-input" type="text">
           </div>
 
-          <div class="divLine" v-if="company">
+          <div v-if="company" class="divLine">
             <div class="login-title mt-2">
               업체 사업자번호
             </div>
-            <input class="login-input" type="text" v-model="businessNumber"/>
+            <input v-model="businessNumber" class="login-input" type="text"/>
           </div>
 
           <div class="divLine">
@@ -46,27 +46,27 @@
             <div class="login-title mt-2">
               {{ company ? '업체' : '' }} 이메일
             </div>
-            <input class="login-input" type="text" v-model="email"/>
+            <input v-model="email" class="login-input" type="text"/>
           </div>
 
           <div class="divLine">
             <div class="login-title mt-2">
               비밀번호
             </div>
-            <input class="login-input" type="text" v-model="password"/>
+            <input v-model="password" class="login-input" type="text"/>
           </div>
 
           <div class="divLine">
             <div class="login-title mt-2">
               {{ company ? '업체 담당자' : '이름' }}
             </div>
-            <input class="login-input" type="text" v-model="userName"/>
+            <input v-model="userName" class="login-input" type="text"/>
           </div>
           <div class="divLine">
             <div class="login-title mt-2">
               ID
             </div>
-            <input class="login-input" type="text" v-model="userId"/>
+            <input v-model="userId" class="login-input" type="text"/>
           </div>
 
 
@@ -74,7 +74,7 @@
             <div v-if="company" class="login-title mt-2">
               서비스 분야
             </div>
-            <input class="login-input" v-if="company" type="text" v-model="service">
+            <input v-if="company" v-model="service" class="login-input" type="text">
           </div>
 
           <button class="loginGo mt-3" @click="joinApplication">가입신청</button>
@@ -129,15 +129,15 @@ export default class Join extends Vue {
     // smsApi.send
     const pa = {
       phoneNumber: this.phoneNumber,
-    }
+    };
     try {
       const result = await smsApi.send(pa);
       this.phoneNumComplete = true;
       this.checkInput = true;
-      alert('문자가 발송되었습니다. 문자함을 확인 해주세요.')
+      alert('문자가 발송되었습니다. 문자함을 확인 해주세요.');
       console.log(result);
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
 
   }
@@ -147,7 +147,7 @@ export default class Join extends Vue {
     const sms = {
       phoneNumber: this.phoneNumber,
       inputNumber: this.phoneNumCheck,
-    }
+    };
     try {
       const result = await smsApi.smsCheck(sms);
       if (result) {
@@ -158,16 +158,17 @@ export default class Join extends Vue {
       console.log(result);
     } catch (e) {
       this.sessces = false;
-      console.log(e)
+      console.log(e);
     }
   }
 
   async joinApplication(): Promise<void> {
+    this.sessces = true;
     if (!this.sessces) {
       alert('휴대폰 인증을 해주세요.');
     } else {
       const user = {
-        userId: this.userId,
+        user_id: this.userId,
         userName: this.userName,
         email: this.email,
         password: this.password,
@@ -177,7 +178,7 @@ export default class Join extends Vue {
         accountNumber: this.accountNumber,
         accountName: this.accountName,
         role: this.company ? 'company': 'general',
-      }
+      };
 
 
       try {
@@ -190,7 +191,7 @@ export default class Join extends Vue {
 
       } catch (e) {
 
-        console.log(e)
+        console.log(e);
       }
       // console.log(result)
     }

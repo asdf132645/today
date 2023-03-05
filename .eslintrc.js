@@ -2,15 +2,23 @@ module.exports = {
   root: true,
   env: {
     browser: true,
-    'jest/globals': true,
-    node: true,
+    node: true
   },
   extends: [
     '@nuxtjs/eslint-config-typescript',
     'plugin:nuxt/recommended',
-    'prettier',
+    'prettier'
   ],
-  plugins: ['jest'],
+  plugins: [
+  ],
   // add your custom rules here
-  rules: {},
-}
+  rules: {
+    'semi': [2, 'always'],
+    'no-console': 'off',
+    'no-unused-vars': 0,
+    '@typescript-eslint/no-unused-vars': 0,
+    'no-lonely-if': 0,
+    '@typescript-eslint/no-lonely-if': 0,
+    '@typescript-eslint/camelcase': 'off',
+  }
+};

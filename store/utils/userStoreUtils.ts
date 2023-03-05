@@ -21,18 +21,29 @@ export default class UserStoreUtils {
 
     userStore.updateStaySignedIn(param.staySignedIn);
 
-    userStore.updateAccessToken(StoreUserStringParam.of(param.staySignedIn, param.auth?.accessToken));
-    userStore.updateAccessExpiresIn(StoreUserNumberParam.of(param.staySignedIn, param.auth?.expiresIn));
-    userStore.updateAccessExpiresAt(StoreUserNumberParam.of(param.staySignedIn, TokenUtils.toExpiresAt(param.auth?.expiresIn)));
+    userStore.updateStaySignedIn(param.staySignedIn);
 
-    userStore.updateRefreshToken(StoreUserStringParam.of(param.staySignedIn));
-    userStore.updateRefreshExpiresIn(StoreUserNumberParam.of(param.staySignedIn));
-    userStore.updateRefreshExpiresAt(StoreUserNumberParam.of(param.staySignedIn));
+    userStore.updateAccessToken(StoreUserStringParam.of(param.staySignedIn, param.auth?.access.accessToken));
+    userStore.updateAccessExpiresIn(StoreUserNumberParam.of(param.staySignedIn, param.auth?.access.expiresIn));
+    userStore.updateAccessExpiresAt(StoreUserNumberParam.of(param.staySignedIn, TokenUtils.toExpiresAt(param.auth?.access.expiresIn)));
+
+    userStore.updateRefreshToken(StoreUserStringParam.of(param.staySignedIn, param.auth?.refresh.refreshToken));
+    userStore.updateRefreshExpiresIn(StoreUserNumberParam.of(param.staySignedIn, param.auth?.refresh.expiresIn));
+    userStore.updateRefreshExpiresAt(StoreUserNumberParam.of(param.staySignedIn, TokenUtils.toExpiresAt(param.auth?.refresh.expiresIn)));
   }
 
   static refreshAccessToken(param: StoreRefreshTokenParam): void {
-    userStore.updateAccessToken(StoreUserStringParam.of(param.staySignedIn, param.auth?.accessToken));
-    userStore.updateAccessExpiresIn(StoreUserNumberParam.of(param.staySignedIn, param.auth?.expiresIn));
-    userStore.updateAccessExpiresAt(StoreUserNumberParam.of(param.staySignedIn, TokenUtils.toExpiresAt(param.auth?.expiresIn)));
+    userStore.updateAccessToken(StoreUserStringParam.of(param.staySignedIn, param.auth?.access.refreshToken));
+    userStore.updateAccessExpiresIn(StoreUserNumberParam.of(param.staySignedIn, param.auth?.access.expiresIn));
+    userStore.updateAccessExpiresAt(StoreUserNumberParam.of(param.staySignedIn, TokenUtils.toExpiresAt(param.auth?.access?.expiresIn)));
+  }
+
+
+  static refreshTokenExpiring(): boolean {
+    if (!userStore.refreshToken) {
+      return true;
+    }
+
+    return TokenUtils.tokenExpiring(userStore.refreshExpiresAt);
   }
 }

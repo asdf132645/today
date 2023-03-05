@@ -7,6 +7,7 @@ import {apiConstants} from "~/common/api/apiConstants";
 import {RefreshReplyDto} from "~/common/api/service/user/dto/userApiDto";
 import UserStoreUtils from "~/store/utils/userStoreUtils";
 import {StoreRefreshTokenParam} from "~/store/types/userStoreType";
+import RouterUtils from "~/common/lib/routerUtils";
 
 export interface ApiResponse<T> {
   code: number;
@@ -31,7 +32,7 @@ class HttpClient {
   }
 
   async httpPost<T>(url: string, payload: GenericObject, token: string | null): Promise<ApiResponse<T>> {
-    console.log(userStore.accessExpiresAt)
+    console.log(userStore.accessExpiresAt);
     // return await this.refreshTokenAct();
     if (userStore.accessExpiresAt !== null) {
       if (TokenUtils.tokenExpiring(userStore.accessExpiresAt)) {
@@ -63,11 +64,18 @@ class HttpClient {
   }
 
   async refreshTokenAct(): Promise<any> {
-    console.log(userStore.refreshTokentwo)
+    if (UserStoreUtils.refreshTokenExpiring()) {
+      alert('로그인이 만료되었습니다, 다시 로그인해 주세요.');
+      RouterUtils.goTo('/login');
+      userStore.updateUserIdStr('');
+      UserStoreUtils.clearAll();
+      return Promise.reject(new Error('로그인이 만료되었습니다, 다시 로그인해 주세요.'));
+    }
+    console.log(userStore.refreshTokentwo);
     const apiResponse: ApiResponse<RefreshReplyDto> = await this.httpPostAct(apiConstants.auth.refresh,  {userId: userStore.userId, currentHashedRefreshToken: userStore.refreshTokentwo}, userStore.accessToken );
-    if (apiResponse.data?.accessToken) {
+    if (apiResponse.data?.access?.accessToken) {
       UserStoreUtils.refreshAccessToken(StoreRefreshTokenParam.of(userStore.staySignedIn ?? false, apiResponse.data));
-      return Promise.resolve(apiResponse.data);
+      return Promise.resolve(apiResponse.data.access.accessToken);
     }
   }
 

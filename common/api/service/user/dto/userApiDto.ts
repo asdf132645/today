@@ -1,5 +1,5 @@
 export interface userCreateAdd {
-  userId: string;
+  user_id: string;
   password: string;
   userName: string;
   email: string;
@@ -11,32 +11,37 @@ export interface userCreateAdd {
 }
 
 
+export interface UserTokenDto {
+  accessToken: string;
+  expiresIn: number;
+
+  refreshToken: string;
+}
 
 
 //
 // 리프레시 토큰logout
 //
 export interface RefreshReplyDto {
-  accessToken: string;
-  expiresIn: number;
+  access: UserTokenDto;
 }
 
 export interface login {
-  userId: string;
+  user_id: string;
   password: string;
 }
 
 export interface LoginReplyDto {
-  accessToken: string;
-  expiresIn: number;
+  access: UserTokenDto;
+  refresh: UserTokenDto;
   role: string;
   // refresh: UserTokenDto;
 }
 
 export interface myPage {
-  userId: string;
+  user_id: string;
 }
 
 export interface logout {
-  userId: string | null;
+  user_id: string | null;
 }

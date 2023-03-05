@@ -71,7 +71,7 @@ export default class MyPage extends Vue {
   async logout(): Promise<void> {
 
     const pa = {
-      userId: userStore.userId,
+      user_id: userStore.userId,
     };
     try {
       const response = await userApi.logout(pa);

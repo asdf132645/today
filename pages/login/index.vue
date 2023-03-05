@@ -81,7 +81,7 @@ export default class Login extends Vue {
 
   async login(): Promise<void>{
     const pa = {
-      userId: this.userId,
+      user_id: this.userId,
       password: this.password,
     };
     try {
@@ -96,6 +96,7 @@ export default class Login extends Vue {
         }
         userStore.updateUserIdStr(this.userId);
         userStore.updateRefreshTokenStr(authData.refreshToken);
+        console.log(authData);
         UserStoreUtils.updateUserAuth(StoreLoginTokenParam.of(this.staySignedIn, authData ?? undefined));
         RouterUtils.goTo('/');
       }else{
