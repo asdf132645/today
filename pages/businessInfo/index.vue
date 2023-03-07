@@ -27,6 +27,8 @@ import TextLabel from '~/components/uikit/text/TextLabel.vue';
 import PageTitleBar from "~/components/layout/PageTitleBar.vue";
 import companyListItem from '~/components/uikit/company/companyListItem.vue';
 import Content from '~/components/layout/Content.vue';
+import {companyApi} from "~/common/api/service/company/companyApi";
+import {CompanyList} from "~/common/api/service/company/dto/companyApiDto";
 
 @Component({
   components: {
@@ -39,10 +41,22 @@ import Content from '~/components/layout/Content.vue';
   }
 })
 export default class BusinessInfo extends Vue {
-  companyList: object = [
-    {name:'업체명1',num:1,division:'업체설명1',AdditionalDes:'업체 부설명'},
-    {name:'업체명2',num:2,division:'업체설명2',AdditionalDes:'업체 부설명2'}
-  ];
+  companyList: CompanyList | any[] = [];
+
+  mounted():void{
+    this.companyListGet();
+  }
+
+  async companyListGet(): Promise<void>{
+    try {
+      const response = await companyApi.companyList();
+      console.log(response.data);
+      this.companyList = response.data?.data?.companyList;
+    } catch (e) {
+      const error = e as Error;
+      console.log(error.message);
+    }
+  }
 }
 </script>
 

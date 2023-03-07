@@ -5,7 +5,7 @@ import {userStore} from "~/store";
 
 class BoardApi {
   inquiryAdd(request: BoardAdd): Promise<ApiResponse<void>> {
-    return httpClient.httpPost(apiConstants.board.list, request, userStore.accessToken);
+    return httpClient.httpPost(apiConstants.board.list, request);
   }
 }
 

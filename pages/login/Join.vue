@@ -163,7 +163,7 @@ export default class Join extends Vue {
   }
 
   async joinApplication(): Promise<void> {
-    this.sessces = true;
+
     if (!this.sessces) {
       alert('휴대폰 인증을 해주세요.');
     } else {

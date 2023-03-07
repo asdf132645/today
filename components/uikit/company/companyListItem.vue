@@ -1,5 +1,5 @@
 <template>
-  <div class="clickPointer" @click="goDdetailPage(comapnyObj.num,comapnyObj.name)">
+  <div class="clickPointer" @click="goDdetailPage(comapnyObj.num,comapnyObj.company_name)">
     <v-row>
       <v-col cols='6' class='pr-2'>
         <v-card rounded flat>

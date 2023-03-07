@@ -14,5 +14,8 @@ export const apiConstants = {
     login: '/auth/login',
     myPage:'/user/myPage',
     logout:'/auth/logout',
+  },
+  company:{
+    list: '/company/companyList',
   }
 };

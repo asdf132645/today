@@ -11,7 +11,7 @@ import RouterUtils from "~/common/lib/routerUtils";
 
 export interface ApiResponse<T> {
   code: number;
-  data: T | null;
+  data: T | any;
   msg: string;
 }
 
@@ -22,26 +22,58 @@ interface HttpResponse<T> {
 }
 
 class HttpClient {
-  async httpGet<T>(url: string): Promise<ApiResponse<T>> {
-    try {
-      const response: HttpResponse<T> = await axios.get(ServerUrlDefines.apiServer + url);
-      return Promise.resolve(response.data);
-    } catch (e){
-      return Promise.reject(e);
-    }
-  }
+  async httpGet<T>(url: string, parameters: string): Promise<ApiResponse<T>> {
+    let token:string | null = null;
 
-  async httpPost<T>(url: string, payload: GenericObject, token: string | null): Promise<ApiResponse<T>> {
     console.log(userStore.accessExpiresAt);
     // return await this.refreshTokenAct();
     if (userStore.accessExpiresAt !== null) {
       if (TokenUtils.tokenExpiring(userStore.accessExpiresAt)) {
         try {
-          return await this.refreshTokenAct();
+          token = await this.refreshTokenAct();
         } catch (e) {
           return Promise.reject(e);
         }
       }
+    }else{
+      token = userStore.accessToken;
+    }
+    return this.httpGetAct(url, parameters, token);
+  }
+
+  private async httpGetAct<T>(url: string, parameters: string, token: string | null,): Promise<ApiResponse<T>> {
+
+    const options: AxiosRequestConfig = {
+      headers: {
+        'Content-Type' : 'application/json',
+      },
+    };
+    options.headers.Authorization = ` Bearer ${token}`;
+    axios.defaults.withCredentials = true;
+    try {
+      const response: HttpResponse<T> = await axios.get(ServerUrlDefines.apiServer + url + '?' + parameters, options);
+      return Promise.resolve(response.data);
+    }catch (e){
+      return Promise.reject(e);
+    }
+  }
+
+  async httpPost<T>(url: string, payload: GenericObject): Promise<ApiResponse<T>> {
+
+    let token:string | null = null;
+
+    console.log(userStore.accessExpiresAt);
+    // return await this.refreshTokenAct();
+    if (userStore.accessExpiresAt !== null) {
+      if (TokenUtils.tokenExpiring(userStore.accessExpiresAt)) {
+        try {
+          token = await this.refreshTokenAct();
+        } catch (e) {
+          return Promise.reject(e);
+        }
+      }
+    }else{
+      token = userStore.accessToken;
     }
 
     return this.httpPostAct(url, payload, token);
