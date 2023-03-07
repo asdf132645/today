@@ -9,7 +9,7 @@ export default class RouterUtils {
     });
   }
 
-  static goToCompanyDetailPage(companyId: number, name: string): void {
-    this.goTo(`/businessInfo/companyDetail/${companyId}?name=${name}`);
+  static goToCompanyDetailPage(companyId: string): void {
+    this.goTo(`/businessInfo/companyDetail/${companyId}`);
   }
 }

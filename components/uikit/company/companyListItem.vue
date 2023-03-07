@@ -1,5 +1,5 @@
 <template>
-  <div class="clickPointer" @click="goDdetailPage(comapnyObj.num,comapnyObj.company_name)">
+  <div class="clickPointer" @click="goDdetailPage(String(comapnyObj.companyGoPageNum))">
     <v-row>
       <v-col cols='6' class='pr-2'>
         <v-card rounded flat>
@@ -14,7 +14,7 @@
       <v-col class='pl-2'>
         <div>
           <TextLabel
-            :text='comapnyObj.name'
+            :text='comapnyObj.company_name'
             text-size-subtitle
             weight-bold
           />
@@ -23,11 +23,11 @@
         <!--        <div class='tnj-v-spacer-3'></div>-->
 
         <div>
-          <p>{{ comapnyObj.description }}</p>
+          <p>{{ comapnyObj.companyDescription }}</p>
         </div>
 
         <div>
-          <TextLabel :text='comapnyObj.AdditionalDes'
+          <TextLabel :text='comapnyObj.company_companyDetails'
                      text-size-body
                      class='mt-2'
           ></TextLabel>
@@ -55,8 +55,8 @@ export default class BusinessInfo extends Vue {
     console.log(this.comapnyObj);
   }
 
-  goDdetailPage(id: number, name: string): void{
-    RouterUtils.goToCompanyDetailPage(id,name);
+  goDdetailPage(id: string): void{
+    RouterUtils.goToCompanyDetailPage(id);
   }
 }
 </script>
