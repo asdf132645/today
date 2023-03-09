@@ -37,6 +37,10 @@ export const apiConstants = {
     list: {
       endpoint: '/company/companyList',
       requiresToken: false,
+    },
+    detail:{
+      endpoint:'/company',
+      requiresToken: false,
     }
   }
 };

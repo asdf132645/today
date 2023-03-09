@@ -13,6 +13,19 @@ export interface CompanyDto{
   companyCode: string;
 }
 
-export interface CompanyDetailDto {
+export interface companyDetailDto {
+  company_name: string;
+  companyDescription:string;
+  companyType:string;
+  address: string;
+  detail_address: string;
+  companyCode: string;
+  createdAt: string;
+  url: string;
+}
+
+export interface CompanyDetail {
+  companyDetail : companyDetailDto;
+  rating: number;
 
 }

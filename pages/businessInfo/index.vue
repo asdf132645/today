@@ -11,6 +11,7 @@
             :company-item='companyItem'
             class='v-chip--clickable'
             :comapny-obj="companyItem"
+            :img-url="companyItem.imgUrl"
           >
           </companyListItem>
         </Content>

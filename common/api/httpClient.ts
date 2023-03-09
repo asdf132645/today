@@ -51,7 +51,7 @@ class HttpClient {
     options.headers.Authorization = ` Bearer ${token}`;
     axios.defaults.withCredentials = true;
     try {
-      const response: HttpResponse<T> = await axios.get(ServerUrlDefines.apiServer + url + '?' + parameters, options);
+      const response: HttpResponse<T> = await axios.get(ServerUrlDefines.apiServer + url + '/' + parameters, options);
       return Promise.resolve(response.data);
     } catch (e) {
       return Promise.reject(e);
@@ -91,6 +91,7 @@ class HttpClient {
       const response: HttpResponse<T> = await axios.post(ServerUrlDefines.apiServer + url, payload, options);
       return Promise.resolve(response.data);
     } catch (e) {
+      // alert(e);
       return Promise.reject(e);
     }
   }

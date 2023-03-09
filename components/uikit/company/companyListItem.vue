@@ -5,7 +5,7 @@
         <v-card rounded flat>
           <v-img
             contain
-            :src='comapnyObj.imgUrl'
+            :src='imgurlArr[0]'
             height='140px'
           >
           </v-img>
@@ -31,6 +31,12 @@
                      text-size-body
                      class='mt-2'
           ></TextLabel>
+          <v-rating
+            v-model="comapnyObj.rating"
+            bg-color="orange-lighten-1"
+            color="blue"
+            readonly
+          ></v-rating>
         </div>
 
       </v-col>
@@ -50,9 +56,16 @@ import RouterUtils from '~/common/lib/routerUtils';
 })
 export default class BusinessInfo extends Vue {
   @Prop() readonly comapnyObj!: object;
+  @Prop() readonly imgUrl!: string;
+
   companyList: object = [];
+  imgurlArr: string[] = [];
   mounted(){
-    // console.log(this.comapnyObj);
+    const img =  this.imgUrl.split(',');
+    for (const i in img) {
+      this.imgurlArr.push(img[i]);
+    }
+
   }
 
   goDdetailPage(id: string): void{

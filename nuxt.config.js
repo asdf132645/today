@@ -1,9 +1,9 @@
-import colors from 'vuetify/es5/util/colors'
+import colors from 'vuetify/es5/util/colors';
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - today',
+    titleTemplate: '%s - today solve',
     title: 'today',
     htmlAttrs: {
       lang: 'en',
@@ -106,4 +106,4 @@ export default {
       },
     },
   },
-}
+};

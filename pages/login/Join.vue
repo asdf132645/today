@@ -138,6 +138,7 @@ export default class Join extends Vue {
       console.log(result);
     } catch (e) {
       console.log(e);
+      alert('서버에러입니다. 업체에 전화 주세요 01027019291');
     }
 
   }

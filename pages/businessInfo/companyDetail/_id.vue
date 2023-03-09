@@ -1,17 +1,16 @@
 <template>
   <div>
-
     <ImageTitleBar
-      :image-url='storeInfo[0]?.url'
-      :title='String($route.query.name)'
-      :description='storeInfo[0]?.division'
+      :image-url='companyImgArr'
+      :title='companyInfo.company_name'
+      :description='companyInfo.companyType'
       has-share-button
       has-map-button
       has-more-images
-      :hasFaveButton="false"
+      :has-fave-button="false"
     ></ImageTitleBar>
     <v-rating
-      v-model="storeInfo[0].scope"
+      v-model="rating"
       readonly
       bg-color="orange-lighten-1"
       color="blue"
@@ -20,7 +19,7 @@
              title='업체 정보'
              has-divider
     >
-      {{ storeInfo[0].description }}
+      {{ companyInfo.companyDescription }}
     </Section>
     <Section
       title='업체 리뷰'
@@ -41,10 +40,10 @@
               >
                   <v-img
                     :src="imgItm.img"
-                    @click="viewImg(imgItm.img)"
                     cover
                     height="150"
                     class="text-right pa-2 pointCursor"
+                    @click="viewImg(imgItm.img)"
                   >
                   </v-img>
               </v-col>
@@ -81,6 +80,8 @@ import PageTitleBar from "~/components/layout/PageTitleBar.vue";
 import ImageTitleBar from '~/components/layout/ImageTitleBar.vue';
 import Section from '~/components/layout/Section.vue';
 import Commondialgos from "~/components/dialgos/Commondialgos.vue";
+import {companyApi} from "~/common/api/service/company/companyApi";
+import {companyDetailDto} from "~/common/api/service/company/dto/companyApiDto";
 
 
 @Component({
@@ -94,9 +95,11 @@ import Commondialgos from "~/components/dialgos/Commondialgos.vue";
 })
 export default class companyDetail extends Vue {
   imgdata: string = '';
-  storeInfo: object[] = [];
+  companyInfo: companyDetailDto | any = [];
   imgPage: boolean = false;
   openDialog:number = 0;
+  rating: number = 0;
+  companyImgArr: any[] = [];
   review: object[] = [{
     content:'업체리뷰공간',
     url: [
@@ -133,9 +136,9 @@ export default class companyDetail extends Vue {
     regDate:'2023-03-01',
   }];
 
-  // $route.query.name
-  fetch(): void {
-    this.queryStoreInfo();
+
+  created(){
+    this.queryCompanyDetail();
   }
 
   viewImg(img: string): void{
@@ -144,28 +147,48 @@ export default class companyDetail extends Vue {
     this.imgPage = true;
   }
 
-  queryStoreInfo(): void{
-    console.log(this.$route.params.id)
-      // 백엔드에서 업체정보
-      this.storeInfo = [{
-        url: [
-          {
-            img:'https://hitable2020images.blob.core.windows.net/store/tablenjoy%2F2023-02%2F1676439873588.jpg',
-            width:'',
-            height:'',
-          },
-          {
-            img:'https://hitable2020images.blob.core.windows.net/store/tablenjoy%2F2023-02%2F1676439873588.jpg',
-            width:'',
-            height:'',
-          }
-        ],
-        name: '업체명1',
-        division:'인테리어',
-        description:'이업체는 언제까지하고 언제까지함 그리고 지역은 어디에있음 ~~!',
-        scope: 3,
+  async queryCompanyDetail(): Promise<void>{
 
-      }]
+    // companyDetail
+    try {
+      const response = await companyApi.companyDetail(this.$route.params.id);
+      this.companyInfo = response.data.data.companyDetail;
+      this.rating = response.data.data.rating;
+      this.companyImgArr = [];
+      console.log(response.data.data.companyDetail.url);
+
+      for (const i in response.data.data.companyDetail.url) {
+        this.companyImgArr.push({
+          img: response.data.data.companyDetail.url[i],
+        });
+      }
+      console.log(response.data.data.companyDetail);
+
+      // response.data.data.rating
+    } catch (e) {
+      const error = e as Error;
+      console.log(error.message);
+    }
+      // 백엔드에서 업체정보
+      // this.companyInfo = [{
+      //   url: [
+      //     {
+      //       img:'https://hitable2020images.blob.core.windows.net/store/tablenjoy%2F2023-02%2F1676439873588.jpg',
+      //       width:'',
+      //       height:'',
+      //     },
+      //     {
+      //       img:'https://hitable2020images.blob.core.windows.net/store/tablenjoy%2F2023-02%2F1676439873588.jpg',
+      //       width:'',
+      //       height:'',
+      //     }
+      //   ],
+      //   name: '업체명1',
+      //   division:'인테리어',
+      //   description:'이업체는 언제까지하고 언제까지함 그리고 지역은 어디에있음 ~~!',
+      //   scope: 3,
+      //
+      // }];
 
   }
 }
