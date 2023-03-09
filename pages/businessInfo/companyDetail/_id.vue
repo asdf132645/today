@@ -145,6 +145,7 @@ export default class companyDetail extends Vue {
   }
 
   queryStoreInfo(): void{
+    console.log(this.$route.params.id)
       // 백엔드에서 업체정보
       this.storeInfo = [{
         url: [

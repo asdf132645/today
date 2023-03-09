@@ -1,21 +1,42 @@
 export const apiConstants = {
-  auth:{
-    refresh:'/auth/refresh',
+  auth: {
+    refresh: {
+      endpoint: '/auth/refresh',
+      requiresToken: false,
+    },
   },
   board: {
-    list:'/users',
+    list: {
+      endpoint: '/users',
+      requiresToken: false,
+    },
   },
   sendSms: {
-    send:'/user/sendSms',
-    checkSms:'/user/checkSms'
+    send: {
+      endpoint: '/user/sendSms',
+      requiresToken: false,
+    },
+    checkSms: {
+      endpoint: '/user/checkSms',
+      requiresToken: false,
+    }
   },
-  user:{
-    create: '/user/create',
-    login: '/auth/login',
-    myPage:'/user/myPage',
-    logout:'/auth/logout',
+  user: {
+    create: {
+      endpoint: '/user/create',
+      requiresToken: false
+    },
+    login: {
+      endpoint: '/auth/login',
+      requiresToken: false
+    },
+    myPage: {endpoint: '/user/myPage', requiresToken: false},
+    logout: {endpoint: '/auth/logout', requiresToken: true,},
   },
-  company:{
-    list: '/company/companyList',
+  company: {
+    list: {
+      endpoint: '/company/companyList',
+      requiresToken: false,
+    }
   }
 };

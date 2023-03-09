@@ -1,11 +1,11 @@
 <template>
-  <div class="clickPointer" @click="goDdetailPage(String(comapnyObj.companyGoPageNum))">
+  <div class="clickPointer" @click="goDdetailPage(String(comapnyObj.companyCode))">
     <v-row>
       <v-col cols='6' class='pr-2'>
         <v-card rounded flat>
           <v-img
             contain
-            src='https://hitable2020images.blob.core.windows.net/store/tablenjoy%2F2023-02%2F1676439873588.jpg'
+            :src='comapnyObj.imgUrl'
             height='140px'
           >
           </v-img>
@@ -52,7 +52,7 @@ export default class BusinessInfo extends Vue {
   @Prop() readonly comapnyObj!: object;
   companyList: object = [];
   mounted(){
-    console.log(this.comapnyObj);
+    // console.log(this.comapnyObj);
   }
 
   goDdetailPage(id: string): void{

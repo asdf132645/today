@@ -10,5 +10,9 @@ export interface CompanyDto{
   company_detail_address: string;
   imgUrl: string;
   rating: number;
-  companyGoPageNum: string;
+  companyCode: string;
+}
+
+export interface CompanyDetailDto {
+
 }
