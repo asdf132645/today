@@ -167,26 +167,7 @@ export default class companyDetail extends Vue {
       const error = e as Error;
       console.log(error.message);
     }
-      // 백엔드에서 업체정보
-      // this.companyInfo = [{
-      //   url: [
-      //     {
-      //       img:'https://hitable2020images.blob.core.windows.net/store/tablenjoy%2F2023-02%2F1676439873588.jpg',
-      //       width:'',
-      //       height:'',
-      //     },
-      //     {
-      //       img:'https://hitable2020images.blob.core.windows.net/store/tablenjoy%2F2023-02%2F1676439873588.jpg',
-      //       width:'',
-      //       height:'',
-      //     }
-      //   ],
-      //   name: '업체명1',
-      //   division:'인테리어',
-      //   description:'이업체는 언제까지하고 언제까지함 그리고 지역은 어디에있음 ~~!',
-      //   scope: 3,
-      //
-      // }];
+
 
   }
 }

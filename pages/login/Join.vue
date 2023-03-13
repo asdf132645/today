@@ -14,18 +14,18 @@
             <div class="login-title">
               {{ company ? '업체' : '' }} 계좌번호
             </div>
-            <input v-model="accountNumber" class="login-input" type="text"/>
+            <input v-model="accountNumber" class="input-style2" type="text"/>
             <div class="login-title mt-2">
               {{ company ? '업체' : '' }} 은행명
             </div>
-            <input v-model="accountName" class="login-input" type="text">
+            <input v-model="accountName" class="input-style2" type="text">
           </div>
 
           <div v-if="company" class="divLine">
             <div class="login-title mt-2">
               업체 사업자번호
             </div>
-            <input v-model="businessNumber" class="login-input" type="text"/>
+            <input v-model="businessNumber" class="input-style2" type="text"/>
           </div>
 
           <div class="divLine">
@@ -33,10 +33,10 @@
               휴대폰번호
             </div>
             <div>
-              <input v-model="phoneNumber" class="login-input wid80" type="text" :disabled="phoneNumComplete"/>
+              <input v-model="phoneNumber" class="input-style2 wid80" type="text" :disabled="phoneNumComplete"/>
               <v-btn class="height20" :disabled="phoneNumComplete" @click="smsCertification">인증번호 요청</v-btn>
               <div v-if="checkInput" class="mt-2">
-                <input v-model="phoneNumCheck" class="login-input wid80" type="text"/>
+                <input v-model="phoneNumCheck" class="input-style2 wid80" type="text"/>
                 <v-btn class="height20" @click="smsCheck">확인</v-btn>
               </div>
             </div>
@@ -46,27 +46,27 @@
             <div class="login-title mt-2">
               {{ company ? '업체' : '' }} 이메일
             </div>
-            <input v-model="email" class="login-input" type="text"/>
+            <input v-model="email" class="input-style2" type="text"/>
           </div>
 
           <div class="divLine">
             <div class="login-title mt-2">
               비밀번호
             </div>
-            <input v-model="password" class="login-input" type="text"/>
+            <input v-model="password" class="input-style2" type="text"/>
           </div>
 
           <div class="divLine">
             <div class="login-title mt-2">
               {{ company ? '업체 담당자' : '이름' }}
             </div>
-            <input v-model="userName" class="login-input" type="text"/>
+            <input v-model="userName" class="input-style2" type="text"/>
           </div>
           <div class="divLine">
             <div class="login-title mt-2">
               ID
             </div>
-            <input v-model="userId" class="login-input" type="text"/>
+            <input v-model="userId" class="input-style2" type="text"/>
           </div>
 
 
@@ -74,7 +74,7 @@
             <div v-if="company" class="login-title mt-2">
               서비스 분야
             </div>
-            <input v-if="company" v-model="service" class="login-input" type="text">
+            <input v-if="company" v-model="service" class="input-style2" type="text">
           </div>
 
           <button class="loginGo mt-3" @click="joinApplication">가입신청</button>
@@ -202,7 +202,7 @@ export default class Join extends Vue {
 </script>
 
 <style scoped>
-.login-input {
+.input-style2 {
   width: 100%;
   height: 48px;
   padding: 12px 16px;
@@ -259,7 +259,7 @@ export default class Join extends Vue {
   margin-bottom: 10%;
 }
 
-input.login-input.wid80 {
+input.input-style2.wid80 {
   width: 63%;
   margin-right: 13px;
 }
