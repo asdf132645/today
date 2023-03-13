@@ -25,8 +25,9 @@
       title='업체 리뷰'
       has-divider
     >
+<!--      {{review }}-->
       <div v-for="(item, idx) in review" :key="idx">
-
+<!--        {{ item.userId }}-->
         <v-container class="pa-1">
           <v-item-group
             multiple
@@ -51,20 +52,20 @@
           </v-item-group>
         </v-container>
         <v-rating
-          v-model="item.scope"
+          v-model="item.rating"
           readonly
           bg-color="orange-lighten-1"
           color="blue"
         ></v-rating>
 
         <p class="mb-0">
-          {{ item.content }}
+          {{ item.text }}
         </p>
         <p>
-          작성자: {{ item.id }}
+          작성자: {{ item.userId }}
         </p>
         <p>
-          등록일: {{ item.regDate}}
+          등록일: {{ item.createdAt}}
         </p>
         <div class="line-today"></div>
       </div>
@@ -82,6 +83,7 @@ import Section from '~/components/layout/Section.vue';
 import Commondialgos from "~/components/dialgos/Commondialgos.vue";
 import {companyApi} from "~/common/api/service/company/companyApi";
 import {companyDetailDto} from "~/common/api/service/company/dto/companyApiDto";
+import {reviewsApi} from "~/common/api/service/reviews/reviewsApi";
 
 
 @Component({
@@ -100,45 +102,41 @@ export default class companyDetail extends Vue {
   openDialog:number = 0;
   rating: number = 0;
   companyImgArr: any[] = [];
-  review: object[] = [{
-    content:'업체리뷰공간',
-    url: [
-      {
-        img:'https://hitable2020images.blob.core.windows.net/store/tablenjoy%2F2023-02%2F1676439873588.jpg',
-        width:'',
-        height:'',
-      },
-      {
-        img:'https://hitable2020images.blob.core.windows.net/store/test%2Fcoincoin%2F2022-04%2F202204271614273',
-        width:'',
-        height:'',
-      }
-    ],
-    scope:3,
-    id:'a',
-    regDate:'2023-03-01',
-  },{
-    content:'업체리뷰공간',
-    url: [
-      {
-        img:'https://hitable2020images.blob.core.windows.net/store/tablenjoy%2F2023-02%2F1676439873588.jpg',
-        width:'',
-        height:'',
-      },
-      {
-        img:'https://hitable2020images.blob.core.windows.net/store/test%2Fcoincoin%2F2022-04%2F202204271614273',
-        width:'',
-        height:'',
-      }
-    ],
-    scope:3,
-    id:'b',
-    regDate:'2023-03-01',
-  }];
+  review: object[] = [{}];
+  users: object[] = [];
 
 
   created(){
     this.queryCompanyDetail();
+    this.companyReviewList();
+  }
+
+  async companyReviewList(): Promise<void> {
+    try {
+      const response = await reviewsApi.reviewsList(this.$route.params.id);
+      const reviews = response.data.data.reviewList;
+      // this.review = reviews
+
+      console.log(response.data.data.reviewList[0].user.id);
+      this.review = [];
+      for (const i in reviews) {
+        this.review.push({
+          userId: reviews[i].user.user_id,
+          text:reviews[i].text,
+          createdAt:reviews[i].createdAt,
+          rating:reviews[i].rating,
+          companyCode: reviews[i].companyCode,
+          userCreatedAt: reviews[i].user.createdAt,
+
+        });
+        // this.users.push({userId: reviews[i].user.user_id});
+      }
+
+      // response.data.data.rating
+    } catch (e) {
+      const error = e as Error;
+      console.log(error.message);
+    }
   }
 
   viewImg(img: string): void{

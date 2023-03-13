@@ -62,8 +62,6 @@ class HttpClient {
 
     let token: string | null = null;
 
-    console.log(userStore.accessExpiresAt);
-    // return await this.refreshTokenAct();
     if (url.requiresToken) {
       if (TokenUtils.tokenExpiring(userStore.accessExpiresAt)) {
         try {
@@ -85,7 +83,9 @@ class HttpClient {
         'Content-Type': 'application/json',
       },
     };
+    const refreshToken = userStore.refreshToken;
     options.headers.Authorization = ` Bearer ${token}`;
+    options.headers.refreshToken = ` ${refreshToken}`;
     axios.defaults.withCredentials = true;
     try {
       const response: HttpResponse<T> = await axios.post(ServerUrlDefines.apiServer + url, payload, options);
@@ -106,7 +106,7 @@ class HttpClient {
     }
     console.log(userStore.refreshTokentwo);
     const apiResponse: ApiResponse<RefreshReplyDto> = await this.httpPostAct(apiConstants.auth.refresh.endpoint, {
-      userId: userStore.userId,
+      user_id: userStore.userId,
       currentHashedRefreshToken: userStore.refreshTokentwo
     }, userStore.accessToken);
     if (apiResponse.data?.access?.accessToken) {
