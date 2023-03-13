@@ -20,10 +20,10 @@
             <p>전체 업체</p>
           </li>
         </router-link>
-        <router-link to="">
+        <router-link to="/estimate">
           <li>
             <v-icon>mdi-clipboard-file</v-icon>
-            <p>문의접수</p>
+            <p>견적요청</p>
           </li>
         </router-link>
       </ul>
@@ -112,8 +112,6 @@ export default class ListContent extends Vue {
   list-style: none;
   display: inline-block;
   width: 22%;
-  border: 1px solid #dedede;
-  border-radius: 100%;
   height: 107px;
   text-align: center;
   padding: 20px;

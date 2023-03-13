@@ -18,11 +18,11 @@
             <div class="login-title">
               ID
             </div>
-            <input v-model="userId" class="login-input" type="text"/>
+            <input v-model="userId" class="input-style2" type="text"/>
             <div class="login-title mt-2">
               비밀번호
             </div>
-            <input v-model="password" class="login-input" type="text"/>
+            <input v-model="password" class="input-style2" type="text"/>
           </div>
           <button class="loginGo" @click="login">로그인</button>
           <p v-if="company">
@@ -111,7 +111,7 @@ export default class Login extends Vue {
 </script>
 
 <style scoped>
-.login-input {
+.input-style2 {
   width: 100%;
   height: 48px;
   padding: 12px 16px;
